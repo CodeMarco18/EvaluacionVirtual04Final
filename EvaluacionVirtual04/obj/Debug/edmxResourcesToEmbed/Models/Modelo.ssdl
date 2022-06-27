@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Evaluacion04Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="area">
+    <Key>
+      <PropertyRef Name="aCodigo" />
+    </Key>
+    <Property Name="aCodigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="aDescripcion" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="contrato">
+    <Key>
+      <PropertyRef Name="cCodigo" />
+    </Key>
+    <Property Name="cCodigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cFecha" Type="datetime" />
+    <Property Name="cFechaFin" Type="datetime" />
+    <Property Name="cSueldo" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="aCodigo" Type="int" />
+    <Property Name="cFechaInicio" Type="datetime" />
+    <Property Name="eCodigo" Type="int" />
+  </EntityType>
+  <EntityType Name="empleado">
+    <Key>
+      <PropertyRef Name="eCodigo" />
+    </Key>
+    <Property Name="eCodigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="eNombre" Type="varchar" MaxLength="50" />
+    <Property Name="eApellido" Type="varchar" MaxLength="50" />
+    <Property Name="eDNI" Type="char" MaxLength="8" />
+    <Property Name="eDireccion" Type="varchar" MaxLength="100" />
+    <Property Name="eCelular" Type="char" MaxLength="9" />
+    <Property Name="eEmail" Type="varchar" MaxLength="50" />
+    <Property Name="eImagen" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <Association Name="R_3">
+    <End Role="area" Type="Self.area" Multiplicity="0..1" />
+    <End Role="contrato" Type="Self.contrato" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="area">
+        <PropertyRef Name="aCodigo" />
+      </Principal>
+      <Dependent Role="contrato">
+        <PropertyRef Name="aCodigo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_4">
+    <End Role="empleado" Type="Self.empleado" Multiplicity="0..1" />
+    <End Role="contrato" Type="Self.contrato" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empleado">
+        <PropertyRef Name="eCodigo" />
+      </Principal>
+      <Dependent Role="contrato">
+        <PropertyRef Name="eCodigo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Evaluacion04ModelStoreContainer">
+    <EntitySet Name="area" EntityType="Self.area" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="contrato" EntityType="Self.contrato" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="empleado" EntityType="Self.empleado" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="R_3" Association="Self.R_3">
+      <End Role="area" EntitySet="area" />
+      <End Role="contrato" EntitySet="contrato" />
+    </AssociationSet>
+    <AssociationSet Name="R_4" Association="Self.R_4">
+      <End Role="empleado" EntitySet="empleado" />
+      <End Role="contrato" EntitySet="contrato" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

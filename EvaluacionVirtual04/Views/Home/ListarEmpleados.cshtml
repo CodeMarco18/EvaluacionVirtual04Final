@@ -1,0 +1,78 @@
+﻿@model IEnumerable<EvaluacionVirtual04.Models.empleado>
+
+@{
+    ViewBag.Title = "ListarEmpleados";
+}
+
+<h2>ListarEmpleados</h2>
+
+<p>
+    @Html.ActionLink("Nuevo Empleado", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.eCodigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.eNombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.eApellido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.eDNI)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.eDireccion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.eCelular)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.eEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.eImagen)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.eCodigo)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.eNombre)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.eApellido)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.eDNI)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.eDireccion)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.eCelular)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.eEmail)
+    </td>
+    <td>
+        <img width="80px" src="~/assets/img/user_icon.png"/>
+    </td>
+    <td>
+        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+            <button type="button" class="btn btn-danger">@Html.ActionLink("Editar", "EditarEmpleado", new { id = item.eCodigo })</button>
+            <button type="button" class="btn btn-warning">@Html.ActionLink("Detalles", "DetalleEmpleado", new { id = item.eCodigo })</button>
+            <button type="button" class="btn btn-success">@Html.ActionLink("Eliminar", "EliminarEmpleado", new { id = item.eCodigo })</button>
+        </div>
+
+    </td>
+</tr>
+}
+
+</table>

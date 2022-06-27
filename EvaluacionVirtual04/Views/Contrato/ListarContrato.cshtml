@@ -1,0 +1,69 @@
+﻿@model IEnumerable<EvaluacionVirtual04.Models.contrato>
+
+@{
+    ViewBag.Title = "ListarContrato";
+}
+
+<h2>ListarContrato</h2>
+
+<p>
+    @Html.ActionLink("Reguistrar Contrato", "CrearContrato")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.cCodigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cFecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cFechaFin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cSueldo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.aCodigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cFechaInicio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.eCodigo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.cCodigo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cFecha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cFechaFin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cSueldo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.aCodigo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cFechaInicio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.eCodigo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditarContrato", new { id=item.cCodigo }) |
+            @Html.ActionLink("Details", "Details", new { id = item.cCodigo }) |
+            @Html.ActionLink("Delete", "EliminarContrato", new { id = item.cCodigo })
+        </td>
+    </tr>
+}
+
+</table>

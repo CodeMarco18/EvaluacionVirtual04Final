@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Evaluacion04Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="area">
+    <Key>
+      <PropertyRef Name="aCodigo" />
+    </Key>
+    <Property Name="aCodigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="aDescripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="contrato" Relationship="Self.R_3" FromRole="area" ToRole="contrato" />
+  </EntityType>
+  <EntityType Name="contrato">
+    <Key>
+      <PropertyRef Name="cCodigo" />
+    </Key>
+    <Property Name="cCodigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cFecha" Type="DateTime" Precision="3" />
+    <Property Name="cFechaFin" Type="DateTime" Precision="3" />
+    <Property Name="cSueldo" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="aCodigo" Type="Int32" />
+    <Property Name="cFechaInicio" Type="DateTime" Precision="3" />
+    <Property Name="eCodigo" Type="Int32" />
+    <NavigationProperty Name="area" Relationship="Self.R_3" FromRole="contrato" ToRole="area" />
+    <NavigationProperty Name="empleado" Relationship="Self.R_4" FromRole="contrato" ToRole="empleado" />
+  </EntityType>
+  <EntityType Name="empleado">
+    <Key>
+      <PropertyRef Name="eCodigo" />
+    </Key>
+    <Property Name="eCodigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="eNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="eApellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="eDNI" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
+    <Property Name="eDireccion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="eCelular" Type="String" MaxLength="9" FixedLength="true" Unicode="false" />
+    <Property Name="eEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="eImagen" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="contrato" Relationship="Self.R_4" FromRole="empleado" ToRole="contrato" />
+  </EntityType>
+  <Association Name="R_3">
+    <End Role="area" Type="Self.area" Multiplicity="0..1" />
+    <End Role="contrato" Type="Self.contrato" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="area">
+        <PropertyRef Name="aCodigo" />
+      </Principal>
+      <Dependent Role="contrato">
+        <PropertyRef Name="aCodigo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_4">
+    <End Role="empleado" Type="Self.empleado" Multiplicity="0..1" />
+    <End Role="contrato" Type="Self.contrato" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empleado">
+        <PropertyRef Name="eCodigo" />
+      </Principal>
+      <Dependent Role="contrato">
+        <PropertyRef Name="eCodigo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Evaluacion04Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="area" EntityType="Self.area" />
+    <EntitySet Name="contrato" EntityType="Self.contrato" />
+    <EntitySet Name="empleado" EntityType="Self.empleado" />
+    <AssociationSet Name="R_3" Association="Self.R_3">
+      <End Role="area" EntitySet="area" />
+      <End Role="contrato" EntitySet="contrato" />
+    </AssociationSet>
+    <AssociationSet Name="R_4" Association="Self.R_4">
+      <End Role="empleado" EntitySet="empleado" />
+      <End Role="contrato" EntitySet="contrato" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

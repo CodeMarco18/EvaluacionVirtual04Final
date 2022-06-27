@@ -1,0 +1,80 @@
+﻿@model EvaluacionVirtual04.Models.contrato
+
+@{
+    ViewBag.Title = "EliminarContrato";
+}
+
+<h2>EliminarContrato</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>contrato</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.cCodigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cCodigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cFecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cFecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cFechaFin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cFechaFin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cSueldo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cSueldo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.aCodigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.aCodigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cFechaInicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cFechaInicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.eCodigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.eCodigo)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

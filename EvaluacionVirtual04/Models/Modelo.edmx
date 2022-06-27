@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Evaluacion04Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="area">
+          <Key>
+            <PropertyRef Name="aCodigo" />
+          </Key>
+          <Property Name="aCodigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="aDescripcion" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="contrato">
+          <Key>
+            <PropertyRef Name="cCodigo" />
+          </Key>
+          <Property Name="cCodigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cFecha" Type="datetime" />
+          <Property Name="cFechaFin" Type="datetime" />
+          <Property Name="cSueldo" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="aCodigo" Type="int" />
+          <Property Name="cFechaInicio" Type="datetime" />
+          <Property Name="eCodigo" Type="int" />
+        </EntityType>
+        <EntityType Name="empleado">
+          <Key>
+            <PropertyRef Name="eCodigo" />
+          </Key>
+          <Property Name="eCodigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="eNombre" Type="varchar" MaxLength="50" />
+          <Property Name="eApellido" Type="varchar" MaxLength="50" />
+          <Property Name="eDNI" Type="char" MaxLength="8" />
+          <Property Name="eDireccion" Type="varchar" MaxLength="100" />
+          <Property Name="eCelular" Type="char" MaxLength="9" />
+          <Property Name="eEmail" Type="varchar" MaxLength="50" />
+          <Property Name="eImagen" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <Association Name="R_3">
+          <End Role="area" Type="Self.area" Multiplicity="0..1" />
+          <End Role="contrato" Type="Self.contrato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="area">
+              <PropertyRef Name="aCodigo" />
+            </Principal>
+            <Dependent Role="contrato">
+              <PropertyRef Name="aCodigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_4">
+          <End Role="empleado" Type="Self.empleado" Multiplicity="0..1" />
+          <End Role="contrato" Type="Self.contrato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleado">
+              <PropertyRef Name="eCodigo" />
+            </Principal>
+            <Dependent Role="contrato">
+              <PropertyRef Name="eCodigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Evaluacion04ModelStoreContainer">
+          <EntitySet Name="area" EntityType="Self.area" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="contrato" EntityType="Self.contrato" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="empleado" EntityType="Self.empleado" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="R_3" Association="Self.R_3">
+            <End Role="area" EntitySet="area" />
+            <End Role="contrato" EntitySet="contrato" />
+          </AssociationSet>
+          <AssociationSet Name="R_4" Association="Self.R_4">
+            <End Role="empleado" EntitySet="empleado" />
+            <End Role="contrato" EntitySet="contrato" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Evaluacion04Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="area">
+          <Key>
+            <PropertyRef Name="aCodigo" />
+          </Key>
+          <Property Name="aCodigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="aDescripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="contrato" Relationship="Self.R_3" FromRole="area" ToRole="contrato" />
+        </EntityType>
+        <EntityType Name="contrato">
+          <Key>
+            <PropertyRef Name="cCodigo" />
+          </Key>
+          <Property Name="cCodigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cFecha" Type="DateTime" Precision="3" />
+          <Property Name="cFechaFin" Type="DateTime" Precision="3" />
+          <Property Name="cSueldo" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="aCodigo" Type="Int32" />
+          <Property Name="cFechaInicio" Type="DateTime" Precision="3" />
+          <Property Name="eCodigo" Type="Int32" />
+          <NavigationProperty Name="area" Relationship="Self.R_3" FromRole="contrato" ToRole="area" />
+          <NavigationProperty Name="empleado" Relationship="Self.R_4" FromRole="contrato" ToRole="empleado" />
+        </EntityType>
+        <EntityType Name="empleado">
+          <Key>
+            <PropertyRef Name="eCodigo" />
+          </Key>
+          <Property Name="eCodigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="eNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="eApellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="eDNI" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="eDireccion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="eCelular" Type="String" MaxLength="9" FixedLength="true" Unicode="false" />
+          <Property Name="eEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="eImagen" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="contrato" Relationship="Self.R_4" FromRole="empleado" ToRole="contrato" />
+        </EntityType>
+        <Association Name="R_3">
+          <End Role="area" Type="Self.area" Multiplicity="0..1" />
+          <End Role="contrato" Type="Self.contrato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="area">
+              <PropertyRef Name="aCodigo" />
+            </Principal>
+            <Dependent Role="contrato">
+              <PropertyRef Name="aCodigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_4">
+          <End Role="empleado" Type="Self.empleado" Multiplicity="0..1" />
+          <End Role="contrato" Type="Self.contrato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleado">
+              <PropertyRef Name="eCodigo" />
+            </Principal>
+            <Dependent Role="contrato">
+              <PropertyRef Name="eCodigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Evaluacion04Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="area" EntityType="Self.area" />
+          <EntitySet Name="contrato" EntityType="Self.contrato" />
+          <EntitySet Name="empleado" EntityType="Self.empleado" />
+          <AssociationSet Name="R_3" Association="Self.R_3">
+            <End Role="area" EntitySet="area" />
+            <End Role="contrato" EntitySet="contrato" />
+          </AssociationSet>
+          <AssociationSet Name="R_4" Association="Self.R_4">
+            <End Role="empleado" EntitySet="empleado" />
+            <End Role="contrato" EntitySet="contrato" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Evaluacion04ModelStoreContainer" CdmEntityContainer="Evaluacion04Entities">
+          <EntitySetMapping Name="area">
+            <EntityTypeMapping TypeName="Evaluacion04Model.area">
+              <MappingFragment StoreEntitySet="area">
+                <ScalarProperty Name="aCodigo" ColumnName="aCodigo" />
+                <ScalarProperty Name="aDescripcion" ColumnName="aDescripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="contrato">
+            <EntityTypeMapping TypeName="Evaluacion04Model.contrato">
+              <MappingFragment StoreEntitySet="contrato">
+                <ScalarProperty Name="cCodigo" ColumnName="cCodigo" />
+                <ScalarProperty Name="cFecha" ColumnName="cFecha" />
+                <ScalarProperty Name="cFechaFin" ColumnName="cFechaFin" />
+                <ScalarProperty Name="cSueldo" ColumnName="cSueldo" />
+                <ScalarProperty Name="aCodigo" ColumnName="aCodigo" />
+                <ScalarProperty Name="cFechaInicio" ColumnName="cFechaInicio" />
+                <ScalarProperty Name="eCodigo" ColumnName="eCodigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="empleado">
+            <EntityTypeMapping TypeName="Evaluacion04Model.empleado">
+              <MappingFragment StoreEntitySet="empleado">
+                <ScalarProperty Name="eCodigo" ColumnName="eCodigo" />
+                <ScalarProperty Name="eNombre" ColumnName="eNombre" />
+                <ScalarProperty Name="eApellido" ColumnName="eApellido" />
+                <ScalarProperty Name="eDNI" ColumnName="eDNI" />
+                <ScalarProperty Name="eDireccion" ColumnName="eDireccion" />
+                <ScalarProperty Name="eCelular" ColumnName="eCelular" />
+                <ScalarProperty Name="eEmail" ColumnName="eEmail" />
+                <ScalarProperty Name="eImagen" ColumnName="eImagen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
